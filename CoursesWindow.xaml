@@ -1,0 +1,49 @@
+﻿<Window x:Class="UI.CoursesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Courses" Height="450" Width="800">
+    <Grid>
+        <Grid>
+            <DataGrid x:Name="coursesdatagrid"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="290" Margin="27,128,0,0" VerticalAlignment="Top" Width="737">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="title" Binding="{Binding Path='title'}"/>
+                    <DataGridTextColumn Header="description" Binding="{Binding Path='description'}"/>
+                    <DataGridTemplateColumn Header="Topics" Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="viewTopcisButton" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ViewTopcisButton_Click">
+                                    <StackPanel>
+                                        <Image Source="{StaticResource View}" Height="20" Width="50"/>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Title" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="76"/>
+            <TextBox x:Name="titleTextBox" HorizontalAlignment="Left" Height="36" Margin="48,10,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
+            <TextBox x:Name="descriptionTextBox" HorizontalAlignment="Left" Height="36" Margin="325,10,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="439"/>
+            <Label Content="Description" HorizontalAlignment="Left" Height="36" Margin="244,10,0,0" VerticalAlignment="Top" Width="76"/>
+            <Button x:Name="insertButton" HorizontalAlignment="Left" Height="42" Margin="48,65,0,0" VerticalAlignment="Top" Width="38" Click="InsertButton_Click" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}">
+                <StackPanel>
+                    <Image Source="{StaticResource Insert}"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="deleteButton" HorizontalAlignment="Left" Height="42" Margin="86,65,0,0" VerticalAlignment="Top" Width="44" Click="DeleteButton_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                <StackPanel>
+                    <Image Source="{StaticResource Remove}" Height="36" Width="37" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="backButton" HorizontalAlignment="Left" Height="42" Margin="127,65,0,0" VerticalAlignment="Top" Width="41" Click="BackButton_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                <StackPanel>
+                    <Image Source="{StaticResource Back}" Width="39" RenderTransformOrigin="-0.019,0.552" Height="39" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

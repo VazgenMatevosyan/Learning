@@ -1,0 +1,51 @@
+﻿<Window x:Class="UI.StudentsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Students" Height="290" Width="596">
+    <Grid>
+        <Label x:Name="nameLabel" Content="Name" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxName" HorizontalAlignment="Left" Margin="65,6,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="195"/>
+        <Label x:Name="surnameLabel" Content="Surname" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxSurname" HorizontalAlignment="Left" Margin="65,29,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="195"/>
+        <Button x:Name="addButton" HorizontalAlignment="Left" Margin="321,19,0,0" VerticalAlignment="Top" Width="26" Height="29" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddButton_Click">
+            <StackPanel>
+                <Image Source="{StaticResource Insert}"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="deleteButton" HorizontalAlignment="Left" Margin="352,19,0,0" VerticalAlignment="Top" Width="26" Height="29" Background="{x:Null}" BorderBrush="{x:Null}" Click="DeleteButton_Click">
+            <StackPanel>
+                <Image Source="{StaticResource Remove}"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="backButton" HorizontalAlignment="Left" Height="31" Margin="382,19,0,0" VerticalAlignment="Top" Width="30" Click="BackButton_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+            <StackPanel>
+                <Image Source="{StaticResource Back}"/>
+            </StackPanel>
+        </Button>
+        <DataGrid x:Name="studentsDataGrid" IsReadOnly="True" AutoGenerateColumns="False" Margin="52,77,85.6,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="name" Binding="{Binding Path='name'}"/>
+                <DataGridTextColumn Header="surname" Binding="{Binding Path='surname'}"/>
+                <DataGridTextColumn Header="SSN" Binding="{Binding Path='SSN'}"/>
+                <DataGridTemplateColumn Header="View" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="viewStudentButton" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ViewStudentButton_Click">
+                                <StackPanel>
+                                    <Image Source="{StaticResource View}" Height="20" Width="50"/>
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="textBoxSsn" HorizontalAlignment="Left" Height="20" Margin="65,52,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="195"/>
+        <Label Content="SSN" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.256,0.531"/>
+
+    </Grid>
+</Window>

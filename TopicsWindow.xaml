@@ -1,0 +1,34 @@
+﻿<Window x:Class="UI.TopicsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Topics" Height="290" Width="596">
+    <Grid>
+
+        <Label x:Name="courseNameLabel" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Width="120" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button x:Name="insertButton" Click="InsertButton_Click" HorizontalAlignment="Left" Margin="160,30,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}">
+            <StackPanel>
+                <Image Source="{StaticResource Insert}" Width="25"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="deleteButton" Click="DeleteButton_Click" HorizontalAlignment="Left" Margin="190,30,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}">
+            <StackPanel>
+                <Image  Source="{StaticResource Remove}" Width="25"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="backButton" Click="BackButton_Click" HorizontalAlignment="Left" Margin="215,30,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}">
+            <StackPanel>
+                <Image Source="{StaticResource Back}" Width="32" Height="28"/>
+            </StackPanel>
+        </Button>
+        <DataGrid x:Name="topicsDataGrid" IsReadOnly="True" AutoGenerateColumns="False" Margin="25,71,55,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="name" Binding="{Binding Path='name'}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="topicTextBox" HorizontalAlignment="Left" Margin="25,37,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+    </Grid>
+</Window>
