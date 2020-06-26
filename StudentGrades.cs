@@ -1,8 +1,8 @@
 ﻿namespace DataAccessLayer.Models
 {
-    public class Topic
+    public class StudentGrades
     {
-        public string name { get; set; }
         public string course { get; set; }
+        public double? grade { get; set; }
     }
 }
