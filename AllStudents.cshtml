@@ -1,0 +1,25 @@
+﻿@model List<Student>
+@{
+    ViewData["Title"] = "AllStudents";
+}
+<style>
+    body {
+        background-image: url(/Photos/Students.jpg);
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+@foreach (Student student in @Model)
+{
+    <div>
+        <h4>
+            <a asp-controller="Students" asp-action="OneStudent">
+                <span>@student.name</span>
+                <span>@student.surname</span>
+            </a>
+        </h4>
+    </div>
+}
+

@@ -1,0 +1,24 @@
+﻿@model List<Teacher>
+@{
+    ViewData["Title"] = "Teachers";
+}
+<style>
+    body {
+        background-image: url(/Photos/Teachers.jpg);
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+@foreach (Teacher teacher in @Model)
+{
+    <div>
+        <h4>
+            <span>@teacher.name</span>
+            <span>@teacher.surname</span>
+            <span>@teacher.course</span>
+        </h4>
+    </div>
+}
+

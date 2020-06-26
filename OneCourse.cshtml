@@ -1,0 +1,14 @@
+﻿@model List<Topic>
+
+<h1>aaaaaa</h1>
+<h1>@ViewData["Course Name"]</h1>
+<br>
+@foreach (Topic topic in @Model)
+{
+    <div>        
+        <h4>
+            <li><span>@topic.name</span></li>
+        </h4>
+    </div>
+}
+

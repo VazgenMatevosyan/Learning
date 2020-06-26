@@ -1,0 +1,28 @@
+﻿@model List<Course>
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    body {
+        background-image:url(/Photos/Courses.jpg);
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+@foreach (Course course in @Model)
+{
+    <div>
+        <h4>
+            <a href="@Url.Action("OneCourse", "Courses", new { courseName =@course.title })">
+                <span>@course.title</span>
+            </a>
+            <br> 
+            @*<a asp-controller="Courses" asp-action="OneCourse">*@
+            
+            @*</a>*@
+            <span>@course.description</span>
+        </h4>
+    </div>
+}
