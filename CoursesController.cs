@@ -1,48 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using WebUI.Models;
-
-namespace WebUI.Controllers
+using DataAccessLayer;
+namespace API.Controllers
 {
-    public class CoursesController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CoursesController : ControllerBase
     {
-        public async Task<IActionResult> AllCourses()
+        private readonly IDbCourses courses;
+        public CoursesController(IDbCourses courses)
         {
-            List<Course> courses = new List<Course>();
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://vazgen-001-site1.gtempurl.com/");
-            HttpRequestMessage requestMessage = new HttpRequestMessage();
-            requestMessage.Method = HttpMethod.Get;
-            requestMessage.RequestUri = new Uri("api/Courses", UriKind.Relative);
-            HttpResponseMessage response = await client.SendAsync(requestMessage);
-            if (response.IsSuccessStatusCode)
-            {
-                string responseBody = await response.Content.ReadAsStringAsync();
-                courses = JsonConvert.DeserializeObject<List<Course>>(responseBody);
-            }
-            return View(courses);
+            this.courses = courses;
         }
-        public async Task<IActionResult> OneCourse(string courseName)
+        [HttpGet]
+        public  ActionResult<IEnumerable<Course>> Get()
         {
-            List<Topic> topics = new List<Topic>();
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://vazgen-001-site1.gtempurl.com/");
-            HttpRequestMessage requestMessage = new HttpRequestMessage();
-            requestMessage.Method = HttpMethod.Get;
-            requestMessage.RequestUri = new Uri(String.Format("api/Topics/Course/{0}",courseName), UriKind.Relative);
-            HttpResponseMessage response = await client.SendAsync(requestMessage);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                string responseBody = await response.Content.ReadAsStringAsync();
-                topics = JsonConvert.DeserializeObject<List<Topic>>(responseBody);
+                return Ok(courses.GetCourses());
             }
-            ViewData["Course Name"] = courseName;
-            return View(topics);
+            catch
+            {
+                return StatusCode(500,"Server Error.");
+            }
+        }
+        [HttpOptions]
+        public void Options()
+        {
+            HttpContext.Response.Headers.Add("Allow", "Get");
         }
     }
 }

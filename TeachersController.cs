@@ -1,31 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using WebUI.Models;
+using DataAccessLayer;
+using DataAccessLayer.Models;
+using AutoMapper;
+using API.Models;
 
-namespace WebUI.Controllers
+namespace API.Controllers
 {
-    public class TeachersController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TeachersController : ControllerBase
     {
-        public async Task<IActionResult> AllTeachers()
+        private readonly IDbTeachers teachers;
+        private readonly IMapper mapper;
+        public TeachersController(IDbTeachers teachers,IMapper mapper)
         {
-            List<Teacher> teachers = new List<Teacher>();
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://vazgen-001-site1.gtempurl.com/");
-            HttpRequestMessage requestMessage = new HttpRequestMessage();
-            requestMessage.Method = HttpMethod.Get;
-            requestMessage.RequestUri = new Uri("api/Teachers", UriKind.Relative);
-            HttpResponseMessage response = await client.SendAsync(requestMessage);
-            if (response.IsSuccessStatusCode)
+            this.teachers = teachers;
+            this.mapper = mapper;
+        }
+        [HttpGet]
+        public ActionResult<IEnumerable<Teacher>> Get()
+        {
+            try
             {
-                string responseBody = await response.Content.ReadAsStringAsync();
-                teachers = JsonConvert.DeserializeObject<List<Teacher>>(responseBody);
+                return Ok(teachers.GetTeachers());
             }
-            return View(teachers);
+            catch
+            {
+                return StatusCode(500, "Server Error.");
+            }
+        }
+        [HttpGet("{teacherSsn}")]
+        public ActionResult<TeacherAPI> GetTeacher(string teacherSsn)
+        {
+            Teacher getTeacher = teachers.GetOneTeacher(teacherSsn);
+            try
+            {
+                if (getTeacher.SSN=="---")
+                {
+                    return StatusCode(400, System.String.Format("There isn't exist {0} SSN teacher.", teacherSsn));
+                }
+                else
+                {
+                    return Ok(getTeacher);
+                }
+            }
+            catch
+            {
+                return StatusCode(500, "Server Error.");
+            }
+        }
+        [HttpOptions]
+        public void Options()
+        {
+            HttpContext.Response.Headers.Add("Allow", "Get");
         }
     }
 }
